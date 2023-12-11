@@ -1,0 +1,214 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f3f3;
+    background-image: url('bg.png');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-attachment: fixed;
+}
+
+.header {
+    background-color: #4d5791;
+    color: #ffffff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+h1 {
+    color: white;          
+    text-align: center;     
+    width: 100%;            
+    margin-top: 20px;       
+    margin-bottom: 20px;    
+}
+
+
+.logo {
+    list-style-type: none;
+}
+
+.logo li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.user-nav ul {
+    list-style-type: none;
+}
+
+.user-nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.user-nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.message-container {
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.error, .success {
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.error {
+    background-color: #f44336;
+}
+
+.success {
+    background-color: #2196f3;
+}
+
+.form-container {
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #4d5791;
+}
+
+.label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.input, .select {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button {
+    background-color: #4d5791;
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.button:last-child {
+    margin-right: 0;
+}
+
+.input[type="submit"] {
+    background-color: #4d5791;
+    color: #ffffff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin: 10px;
+    width: fit-content;
+}
+
+.button:hover, .input[type="submit"]:hover {
+    filter: brightness(90%);
+}
+
+.homepage-body {
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.homepage-body a {
+    text-decoration: none;
+    color: #4d5791;
+    border: 1px solid #4d5791;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.homepage-body a:hover {
+    background-color: #4d5791;
+    color: #ffffff;
+}
+
+.homepage-body h3 {
+    margin-top: 20px;
+    color: #4d5791;
+}
+
+.homepage-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.homepage-body ul li {
+    margin-bottom: 10px;
+}
+
+#myPlot, #budgetExpenseChart {
+    width: 100%;
+    max-width: 700px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #4d5791;
+    color: #ffffff;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+}
+
+
+tbody tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+
+tbody tr:hover {
+    background-color: #e0f7fa; 
+}
+
+

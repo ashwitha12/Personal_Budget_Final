@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Budget App</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="header">
+        <ul class="logo">
+            <li><a href="/">Personal Budget App</a></li>
+        </ul>
+
+        <div class="user-nav">
+            <ul>
+                <% if (!user) { %>
+                    <li><a href='/users/new'>Sign Up</a></li>
+                    <li><a href='/users/login'>Login</a></li>
+                <% } else { %>
+                    <li><a href="/trades/new">Categories</a></li>
+                    <li><a href="/users/expense">Expenses</a></li>
+                    <li><a href='/users/profile'>Dashboard</a></li>
+                    <li><a href='/users/logout'>Logout</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <% if (errorMessages.length > 0) { %>
+        <% errorMessages.forEach(message => { %>
+            <div class='error'>
+                <%= message %>
+            </div>
+        <% }); %>
+    <% } %>
+
+    <% if (successMessages.length > 0) { %>
+        <% successMessages.forEach(message => { %>
+            <div class='success'>
+                <%= message %>
+            </div>
+        <% }); %>
+    <% } %>
+</body>
+
+</html>

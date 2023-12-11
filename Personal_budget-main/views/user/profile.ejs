@@ -1,0 +1,214 @@
+<%- include('../partials/header.ejs') %>
+
+<script>
+  let inactivityTimer;
+  let popupTimer;
+
+  function startInactivityTimer() {
+    inactivityTimer = setTimeout(showPopup, 50000);
+  }
+  function resetInactivityTimer() {
+    clearTimeout(inactivityTimer);
+    clearTimeout(popupTimer);
+    startInactivityTimer();
+  }
+
+  function showPopup() {
+    $("#myModal").modal("show");
+    popupTimer = setTimeout(logoutUser, 10000);
+  }
+
+  function continueSession() {
+    $("#myModal").modal("hide");
+    resetInactivityTimer();
+  }
+
+  function logoutUser() {
+    window.location.href = "/users/logout";
+  }
+  document.addEventListener("DOMContentLoaded", startInactivityTimer);
+  document.addEventListener("mousemove", resetInactivityTimer);
+  document.addEventListener("keydown", resetInactivityTimer);
+</script>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Session Timeout Warning</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>You will be logged out in 10 seconds due to inactivity.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="continueSession()"
+        >
+          Continue Session
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+-->
+<div class="homepage-body">
+  <h2>Your Dashboard</h2>
+  <a href="/trades/new">
+    <button>Add Category</button>
+  </a>
+  <a href="/users/expense">
+    <button>Add Expense</button>
+  </a>
+  <div>
+    <% if (categories.length > 0) { %>
+    <h4 style="margin-top: 40px">Categories:</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Budget</th>
+          <th>Expense</th>
+          <th>Month</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% categories[0].forEach(category => { %>
+        <tr>
+          <td><%= category.name %></td>
+          <td><%= category.budget %></td>
+          <td><%= category.expense %></td>
+          <td><%= category.month %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <label class="label" for="selectedMonth">Select Month:</label>
+    <select id="selectedMonth" class="select" onchange="updateAllCharts()">
+      <option value="All">All Months</option>
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+
+    <div
+      id="budgetPieChart"
+      style="width: 100%; max-width: 700px; height: 400px"
+    ></div>
+    <div id="categoryBudget" style="display: none">
+      <%- JSON.stringify(categories[0]) %>
+    </div>
+
+    <div
+      id="budgetExpenseChart"
+      style="width: 100%; max-width: 700px; height: 400px"
+    ></div>
+    <div id="categoryData" style="display: none">
+      <%- JSON.stringify(categories[0]) %>
+    </div>
+
+    <script>
+      function updateAllCharts() {
+        updateCharts();
+        updateGraphs();
+      }
+
+      function updateCharts() {
+        const selectedMonth = document.getElementById("selectedMonth").value;
+        const categoryData = JSON.parse(
+          document.getElementById("categoryBudget").textContent
+        );
+        const filteredCategoryData = categoryData.filter(
+          (category) => category.month === selectedMonth
+        );
+        const categoryNamesPie = filteredCategoryData.map(
+          (category) => category.name
+        );
+        const categoryBudgetsPie = filteredCategoryData.map(
+          (category) => category.budget
+        );
+        const dataPie = [
+          {
+            labels: categoryNamesPie,
+            values: categoryBudgetsPie,
+            type: "pie",
+          },
+        ];
+
+        const layoutPie = {
+          title: `Budget Distribution for ${selectedMonth}`,
+        };
+        Plotly.newPlot("budgetPieChart", dataPie, layoutPie);
+      }
+
+      function updateGraphs() {
+        const selectedMonth = document.getElementById("selectedMonth").value;
+        const categoryData = JSON.parse(
+          document.getElementById("categoryData").textContent
+        );
+        const filteredCategoryData = categoryData.filter(
+          (category) => category.month === selectedMonth
+        );
+
+        const categoryNames = filteredCategoryData.map(
+          (category) => category.name
+        );
+        const categoryBudgets = filteredCategoryData.map(
+          (category) => category.budget
+        );
+        const categoryExpenses = filteredCategoryData.map(
+          (category) => category.expense
+        );
+        const data = [
+          {
+            x: categoryNames,
+            y: categoryBudgets,
+            type: "bar",
+            name: "Budget",
+          },
+          {
+            x: categoryNames,
+            y: categoryExpenses,
+            type: "bar",
+            name: "Expense",
+          },
+        ];
+
+        const layout = {
+          title: `Budget and Expense Comparison (${selectedMonth})`,
+          barmode: "group",
+        };
+
+        Plotly.newPlot("budgetExpenseChart", data, layout);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        updateAllCharts(); 
+      });
+    </script>
+
+    <% } else { %>
+    <p style="margin: 10px">No categories available.</p>
+    <% } %>
+  </div>
+</div>
+<%- include('../partials/footer.ejs') %>
