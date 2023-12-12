@@ -18,7 +18,7 @@ const app = express();
 
 //configure app
 let port = 3000;
-let host = 'localhost';
+let host = '134.122.120.202';
 app.set('view engine','ejs');
 
 
@@ -36,7 +36,7 @@ app.use(methodOverride('_method'));
 // })
 
 
-mongoose.connect('mongodb://localhost:27017/personal-budget-db',{useUnifiedTopology: true,useNewUrlParser: true,useCreateIndex: true})
+mongoose.connect('mongodb+srv://doadmin:tTk058K6nV19h2S7@Pbdb-1dc61d18.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=Pbdb&tlsCAFile=<replace-with-path-to-CA-cert>',{useUnifiedTopology: true,useNewUrlParser: true,useCreateIndex: true})
 .then(()=>{
     //start the server
     app.listen(port, host, ()=>{
@@ -53,7 +53,7 @@ app.use(
         secret: "ajfeirf90aeu9eroejfoefj",
         resave: false,
         saveUninitialized: false,
-        store: new MongoStore({mongoUrl: 'mongodb://localhost:27017/personal-budget-db'}),
+        store: new MongoStore({mongoUrl: 'mongodb+srv://doadmin:tTk058K6nV19h2S7@Pbdb-1dc61d18.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=Pbdb&tlsCAFile=<replace-with-path-to-CA-cert>'}),
         cookie: {maxAge: 60*60*1000}
         })
 );
